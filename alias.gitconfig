@@ -1,0 +1,80 @@
+# Copy these aliases to your .gitconfig
+[alias]
+    # some shortcuts here reference custom commands
+    # see: https://github.com/ibaguio/git-helpers
+    s = status
+    ss = status -s
+    a = add
+    # add-staged is a custom command
+    ap = add -p
+    as = add-staged
+    asp = add-staged -p
+    mff = merge --ff-only
+    po = push origin
+    pof = push origin -f
+    pom = push origin master
+
+    # cherry pick
+    cp = cherry-pick
+    cpc = cherry-pick --continue
+    cpa = cherry-pick --abort
+
+    # branch
+    br = branch
+    ba = branch -a
+    del = branch -D
+    gb = get-branch                 # custom command
+
+    # commit
+    ci = commit
+    conm = commit -n -m
+
+    cl = clone
+    co = checkout-x
+    cob = checkout -b
+    drop = checkout -- .            # undo all unstaged changes
+    d = diff --word-diff
+    dc = diff --cached
+    tagcommit = rev-list -n 1
+    fp = fetch -p --tags
+    rh = reset HEAD
+    rs = reset --soft
+    rsh = reset --soft HEAD~1
+    pff = pull --ff-only
+
+    lsm = ls-files --modified
+
+    # rebase
+    ri = rebase -i
+    rbc = rebase --continue
+    rba = rebase --abort
+    rom = rebase origin/master
+    romi = rebase origin/master -i
+
+    # fixup is a custom command
+    fup = fixup
+    fupr = fixup -r
+
+    # file log
+    lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+    lgp = log --pretty=format:"%h%x09%ad%x09%an%x09%x09%s"
+    fl = log -u
+
+    # diff last commit
+    dlc = diff --cached HEAD^
+
+    # list all aliases
+    la = "!git config -l | grep alias | cut -c 7-"
+
+    # stash operations
+    sl = stash list
+    sa = stash apply
+    ss = stash save
+    sp = stash pop
+    ssp = stash show -p             # shows the contents of the stash
+    sdrop = stash drop
+
+    mirror = push --mirror
+[rebase]
+    autoSquash = true
+    autoStash = true

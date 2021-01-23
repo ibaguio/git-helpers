@@ -1,0 +1,27 @@
+#!/bin/bash
+# @author ibaguio
+# wrapper for git-checkout that finds for the correct branch if
+# a branch number is given
+
+digit_re="^[0-9]+$"
+
+if [[ $1 =~ $digit_re ]] ; then
+	# given parameter is a digit, try to determine the branch given
+	# this number and check that out
+	branchname="$(git branch -a | grep "$1" | head -n 1 | sed 's/[ \*]*//g')"
+
+	if [[ -z "$branchname" ]]; then
+		# branch with id not found
+		echo "Branch with number $1 not found"
+		exit 1
+	elif [[ "$branchname" == "remotes/origin/"* ]]; then
+	    # branch that we found is not yet in our local
+	    branchname=$(echo $branchname | sed 's/^remotes\/origin\///g')
+	fi
+
+	shift
+	git checkout $branchname $@
+else
+	# proxy to normal git checkout
+	git checkout $@
+fi

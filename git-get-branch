@@ -1,0 +1,37 @@
+#!/bin/bash
+# @author ibaguio
+# Takes a number that corresponds to a ticket, and looks for the
+# git branch in the current repository that corresponds to that
+# branch.
+
+USAGE=<< EOF
+git get-branch <branch number>
+
+
+
+
+
+EOF
+
+digit_re="^[0-9]+$"
+branchname="$(git branch -a | grep "$1" | head -n 1 | sed 's/[ \*]*//g')"
+
+if [ -z "$branchname" ]; then
+    # branchname not found
+    echo "Cannot find branch with number $1"
+    exit 1
+
+elif ! [[ $1 =~ $digit_re ]] ; then
+   echo "error: [$1] is invalid. Please enter a valid ticker number " >&2;
+
+elif [[ "$branchname" == "remotes/origin/"* ]]; then
+    # create a local of the branch
+    branchname_clean=$(echo $branchname | sed 's/^remotes\/origin\///g')
+    git stash save 2&>1 > /dev/null
+    git checkout -b $branchname_clean $branchname 2&>1 > /dev/null
+    git checkout - 2&>1 > /dev/null
+    git stash pop 2&>1 > /dev/null
+    echo $branchname_clean
+else
+    echo $branchname
+fi

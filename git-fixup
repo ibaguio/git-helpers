@@ -1,0 +1,51 @@
+#!/bin/bash
+# @author ibaguio
+# Fixup current staged files to the given hash
+# if there is only one file in staged, the hash may be omitted
+# and the last hash of the file will be used as target for the
+# fixup
+
+# get parameters
+while getopts ":r" opt; do
+  case ${opt} in
+    r )
+      REBASE=true;
+      echo "rebase true"
+      shift;;
+    \? )
+      echo "Usage: git fixup [-r] <commit hash>"
+      echo ${opt}
+      ;;
+  esac
+done
+
+if ((!$#)); then
+  # check if there is only one file in stage
+  staged_files_count=$(git diff --name-only --cached | wc -l | awk '{print $1}')
+  if [[ $staged_files_count -gt 1 ]]; then
+      echo No hash given. Command cannot auto fixup more than one file, command ignored!
+      exit 1
+  elif [[ $staged_files_count -eq 0 ]]; then
+      echo No staged files found, command ignored!
+      exit 1
+  else
+      # auto fixup should be done, determine the hash of the last commit of the file
+      hash=$(git --no-pager log -n 1 --pretty=format:%H -- $(git --no-pager diff --relative --name-only --cached))
+      echo "Auto fixup will be done on $hash"
+  fi
+else
+  # commit hash passed as parameter
+  hash=$1
+  if ! git rev-parse --quiet --verify "$1"; then
+      echo "Invalid hash $1. Command ignored"
+      exit 1
+  fi
+fi
+
+git commit -n --fixup=$hash
+
+# run the rebase the command to squash commits
+if [ $REBASE ]; then
+    echo "Rebasing"
+    GIT_SEQUENCE_EDITOR=: git rebase $hash~1 -i --autosquash
+fi
