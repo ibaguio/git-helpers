@@ -1,0 +1,46 @@
+#!/bin/bash
+# @author ibaguio
+# toggle git hooks on or off
+ROOT_DIR=$(git rev-parse --show-toplevel)
+HOOKS_DIR=$ROOT_DIR/.git/hooks
+
+# colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+# No Color
+NC='\033[0m'
+
+function turn_off {
+  if [ -d $HOOKS_DIR ]; then
+    mv $HOOKS_DIR "$HOOKS_DIR.off"
+    printf "git hooks is now ${RED}disabled${NC}"
+  else
+    echo "Cannot find hooks dir"
+  fi
+
+}
+
+function turn_on {
+  if [ -d "$HOOKS_DIR.off" ]; then
+    mv "$HOOKS_DIR.off" $HOOKS_DIR
+    printf "git hooks is now ${GREEN}enabled${NC}"
+  else
+    echo "Cannot find disabled hooks dir"
+  fi
+
+}
+
+if [[ -z "$1" ]]; then
+  if [ -d $HOOKS_DIR ]; then
+    turn_off
+
+  elif [ -d "$HOOKS_DIR.off" ]; then
+    turn_on
+  fi
+elif [[ "$1" == "on" ]]; then
+  turn_on
+elif [[ "$1" == "off" ]]; then
+  turn_off
+else
+  echo "Usage: git hooks <on / off>"
+fi
