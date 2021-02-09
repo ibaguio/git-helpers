@@ -14,7 +14,7 @@ Please read the contents of `alias.gitconfig` to understand the shortcuts
 ```
 git clone https://github.com/ibaguio/git-helpers.git
 cd git-helpers/bin/
-echo "export PATH =\$PATH:`pwd`" >> ~/.zshrc
+echo "export PATH=\$PATH:`pwd`" >> ~/.zshrc
 ```
 
 #### Option 2
