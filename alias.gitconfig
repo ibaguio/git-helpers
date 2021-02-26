@@ -9,6 +9,8 @@
     ap = add -p
     as = add-staged
     asp = add-staged -p
+    au = add -u
+    aup = add -u -p
     mff = merge --ff-only
     po = push origin
     pof = push origin -f
@@ -75,6 +77,8 @@
     sdrop = stash drop
 
     mirror = push --mirror
+
+    wl = worktree list
 [rebase]
     autoSquash = true
     autoStash = true
