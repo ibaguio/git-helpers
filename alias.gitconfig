@@ -1,4 +1,7 @@
 # Copy these aliases to your .gitconfig
+# or alternatively add this
+# [include]
+#    path = /path/to/this/file/alias.gitconfig
 [alias]
     # some shortcuts here reference custom commands
     # see: https://github.com/ibaguio/git-helpers
