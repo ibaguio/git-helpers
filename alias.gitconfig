@@ -15,9 +15,11 @@
     au = add -u
     aup = add -u -p
     mff = merge --ff-only
+    mom = merge origin master
     po = push origin
     pof = push origin -f
     pom = push origin master
+    posu = push-set-upstream        # custom command
 
     # cherry pick
     cp = cherry-pick
