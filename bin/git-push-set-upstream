@@ -3,4 +3,4 @@
 # shortcut for push origin --set-upstream <current_branch>
 
 CURRENT_GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-git push origin --set-upstream $CURRENT_GIT_BRANCH
+git push origin --set-upstream $CURRENT_GIT_BRANCH $@
