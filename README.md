@@ -4,41 +4,54 @@ Please read the contents of `alias.gitconfig` to understand the shortcuts
 
 ## Installation
 
-- Copy the contents of `alias.gitconfig` to your `.gitconfig` file
+Execute the `install.sh` found in this repository
 
-#### Option 1 - Recommended
 
-- Clone the repository to you development directory
-- Add git-helpers/bin to your $PATH
-
+Via wget
 ```
-git clone https://github.com/ibaguio/git-helpers.git
-cd git-helpers/bin/
-echo "export PATH=\$PATH:`pwd`" >> ~/.zshrc
+wget -q -O - https://raw.githubusercontent.com/ibaguio/git-helpers/master/install.sh | bash
 ```
 
-#### Option 2
-
-- Copy the contents of `git-helpers/bin` to your `/usr/local/bin` directory
-
+Via curl
 ```
-git clone https://github.com/ibaguio/git-helpers.git
-cd git-helpers/
-cp bin/git-* /usr/local/bin/
+curl -s https://raw.githubusercontent.com/ibaguio/git-helpers/master/install.sh | bash
 ```
 
 
-- Run `git helpme` to show the list of helper scripts and their description
+#### Manually
 
-
-Additionally, you may also alias `git` with `g`. Add this to your `~/.bashrc` or `~/.zshrc`
-
-```
-alias g=git
-```
-
-or
+- Clone the repository to `~/.git-helpers`
 
 ```
-echo "alias g=git" >> `~/.zshrc`
+git --quiet https://github.com/ibaguio/git-helpers.git ~/.git-helpers
+```
+
+- Make sure the helper scripts can be executed
+
+```
+chmod a+x ~/.git-helpers/bin/*
+```
+
+- add the `git-helpers/bin` to your **PATH**
+
+```
+cd ~/.git-helpers/bin/
+echo "alias g=git" >> ~/.bashrc
+echo "export PATH=\$PATH:`pwd`" >> ~/.bashrc
+```
+
+- include the aliases to your `.gitconfig` file
+
+```
+# append this to .gitconfig
+[include]
+   path = ~/.git-helpers/alias.gitconfig
+```
+
+#### Finally
+
+Run
+
+```
+git helpme
 ```
