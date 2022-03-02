@@ -8,7 +8,9 @@ digit_re="^[0-9]+$"
 if [[ $1 =~ $digit_re ]] ; then
 	# given parameter is a digit, try to determine the branch given
 	# this number and check that out
-	branchname="$(git branch -a | grep "$1" | head -n 1 | sed 's/[ \*]*//g')"
+	# strip + sign prefix in the branchname
+	# branches have + sign prefix if they are using a worktree
+	branchname="$(git branch -a | grep "$1" | head -n 1 | sed 's/[+? \*]*//g')"
 
 	if [[ -z "$branchname" ]]; then
 		# branch with id not found

@@ -39,6 +39,7 @@
     cl = clone
     co = checkout-x
     cob = checkout -b
+    cow = checkout-worktree         # checkout branch in a dedicated worktree dir
     drop = checkout -- .            # undo all unstaged changes
     d = diff --word-diff
     dc = diff --cached

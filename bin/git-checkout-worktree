@@ -1,0 +1,54 @@
+#!/bin/bash
+# @author ibaguio
+
+digit_re="^[0-9]+$"
+
+if [[ $1 =~ $digit_re ]] ; then
+	# given parameter is a digit, try to determine the branch given
+	# this number and check that out
+
+	# strip + sign prefix in the branchname
+	# branches have + sign prefix if they are using a worktree
+	branchname="$(git branch -a | grep "$1" | head -n 1 | sed 's/[+? \*]*//g')"
+
+	if [[ -z "$branchname" ]]; then
+		# branch with id not found
+		echo "Branch with number $1 not found"
+		exit 1
+	elif [[ "$branchname" == "remotes/origin/"* ]]; then
+	    # branch that we found is not yet in our local
+	    branchname=$(echo $branchname | sed 's/^remotes\/origin\///g')
+	fi
+
+	shift
+fi
+
+WORKTREE_DIR="$(git rev-parse --show-toplevel)/worktrees"
+GIT_DIR="$(git rev-parse --git-dir)"
+branch_worktree_info=$(git worktree list | grep $branchname)
+
+if [[ "$branch_worktree_info" ]]; then
+	# worktree already exists for this branch
+	dirname=$(echo $branch_worktree_info | cut -d ' ' -f 1)
+
+	echo "branch worktree exists. changing dir to $dirname"
+	cd $dirname
+else
+	# create a new worktree for this branch
+	echo "Creating new worktree for $branchname"
+	NAMES=($(echo $branchname | tr A-Z a-z | tr "/" "\n"))
+	dirname="${NAMES[-1]}"
+
+	echo "git worktree add $WORKTREE_DIR/$dirname $branchname"
+	if git worktree add $WORKTREE_DIR/$dirname $branchname; then
+		# execute post-worktree-create hook if it exists
+		post_create_hook="$GIT_DIR/hooks/post-worktree-create"
+		if [[ -f $post_create_hook ]]; then
+			eval "$post_create_hook $branchname"
+		fi
+
+		cd $dirname
+	else
+		echo "failed to create worktree for $branchname. Consider using normal checkout"
+	fi
+fi
