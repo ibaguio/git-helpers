@@ -31,6 +31,7 @@
     ba = branch -a
     del = branch -D
     gb = get-branch                 # custom command
+    su = set-upstream               # custom command
 
     # commit
     ci = commit

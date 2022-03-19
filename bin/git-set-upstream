@@ -1,0 +1,6 @@
+#!/bin/bash
+# @author ibaguio
+# set the upstream of current branch to origin with the same branch name
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+git branch --set-upstream-to=origin/$current_branch $current_branch
