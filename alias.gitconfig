@@ -12,10 +12,12 @@
     ap = add -p
     as = add-staged
     asp = add-staged -p
-    au = add -u
-    aup = add -u -p
+    au = add -u                     # add all unstaged
+    aup = add -u -p                 # add & pick unstaged
     mff = merge --ff-only
     mom = merge origin/master
+
+    # push
     po = push origin
     pof = push origin -f
     pom = push origin master
@@ -30,25 +32,26 @@
     br = branch
     ba = branch -a
     del = branch -D
-    gb = get-branch                 # custom command
-    su = set-upstream               # custom command
+    gb = get-branch                 # custom command - searches for a branch
+    su = set-upstream               # custom command - set's the upstream of the current branch
 
     # commit
     ci = commit
     conm = commit -n -m
 
-    cl = clone
-    co = checkout-x
+    # diffs
+    d = diff --word-diff
+    dc = diff --cached
+
+    co = checkout-x                 # checkout with auto finding
     cob = checkout -b
     cow = checkout-worktree         # checkout branch in a dedicated worktree dir
     drop = checkout -- .            # undo all unstaged changes
-    d = diff --word-diff
-    dc = diff --cached
     tagcommit = rev-list -n 1
     fp = fetch -p --tags
     rh = reset HEAD
     rs = reset --soft
-    rsh = reset --soft HEAD~1
+    rsh = reset --soft HEAD~1       # undo last commit in HEAD
     pff = pull --ff-only
 
     lsm = ls-files --modified
@@ -59,6 +62,7 @@
     rba = rebase --abort
     rom = rebase origin/master
     romi = rebase origin/master -i
+    rodi = rebase origin/develop -i
 
     # fixup is a custom command
     fup = fixup
@@ -86,6 +90,7 @@
     mirror = push --mirror
 
     wl = worktree list
+
 [rebase]
     autoSquash = true
     autoStash = true

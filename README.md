@@ -2,6 +2,8 @@ This repository is a compilation of my personal git alias configuration and cust
 
 Please read the contents of `alias.gitconfig` to understand the shortcuts
 
+If you're not yet familiar with git aliases, https://www.atlassian.com/git/tutorials/git-alias is a great resource to get started learning.
+
 ## Installation
 
 Execute the `install.sh` found in this repository
