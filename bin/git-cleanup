@@ -1,0 +1,21 @@
+#!/bin/bash
+# see: https://stackoverflow.com/a/28464339
+# see: https://stackoverflow.com/a/17029936
+
+echo "Fetching remote.."
+git fetch -p
+
+echo "Cleaning up local files"
+git gc
+
+# TODO: add exclude branch here
+echo "Determining stale branches.."
+git branch --merged >/tmp/git-cleanup
+git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' >> /tmp/git-cleanup
+
+# vi /tmp/git-cleanup
+
+# echo "Deleting branches.."
+# xargs git branch -D </tmp/git-cleanup
+echo "List of branches that can be deleted"
+cat /tmp/git-cleanup
