@@ -64,6 +64,7 @@
     rba = rebase --abort
     rom = rebase origin/master
     romi = rebase origin/master -i
+    rori = rebase origin/release -i
     rodi = rebase origin/develop -i
 
     # fixup is a custom command
