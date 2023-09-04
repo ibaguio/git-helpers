@@ -1,0 +1,5 @@
+#!/bin/bash 
+# @author ibaguio
+# lists modified files
+
+git ls-files --modified | uniq

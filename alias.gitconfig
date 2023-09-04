@@ -48,13 +48,15 @@
     cow = checkout-worktree         # checkout branch in a dedicated worktree dir
     drop = checkout -- .            # undo all unstaged changes
     tagcommit = rev-list -n 1
-    fp = fetch -p --tags
+    fp = fetch -p --tags -f
     rh = reset HEAD
     rs = reset --soft
     rsh = reset --soft HEAD~1       # undo last commit in HEAD
     pff = pull --ff-only
 
-    lsm = ls-files --modified
+    # list files
+    lm = list-modified
+    lum = list-unmerged
 
     # rebase
     ri = rebase -i
