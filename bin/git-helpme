@@ -57,6 +57,9 @@ cat <<EOF
 | diff --cached         | Show diff of staged files                          | g dc              |
 | diffc                 | Show diff of a given hash                          | g diffc <hash>    |
 |                       |                                                    |                   |
+| list-modified         | List all modified files                            | g lm              |
+| list-unmerged         | List all unmodified files                          | g lum             |
+|                       |                                                    |                   |
 | fixup                 | Fixups each staged file to their last commit       | g fup, g fupr     |
 |                       | Use "fupr" to rebase and squash the fixups         |                   |
 |                       |                                                    |                   |
