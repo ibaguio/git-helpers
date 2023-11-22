@@ -4,4 +4,7 @@
 
 ((!$#)) && echo No hash given, command ignored! && exit 1
 
-git diff $1~ $1 $2
+hash=$1
+shift
+
+git diff $hash~ $hash $@
