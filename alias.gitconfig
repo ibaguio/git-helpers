@@ -66,6 +66,7 @@
     romi = rebase origin/master -i
     rori = rebase origin/release -i
     rodi = rebase origin/develop -i
+    rirm = rebase -i --rebase-merges
 
     # fixup is a custom command
     fup = fixup
