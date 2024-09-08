@@ -38,6 +38,7 @@ EOT
 fi
 
 # include custom aliases to gitconfig if it doesnt exist yet
+touch ~/.gitconfig  # create ~/.gitconfig if it doesn't exist
 cat ~/.gitconfig | grep -q "path = ~/.git-helpers/alias.gitconfig" || {
 cat <<EOT >> ~/.gitconfig
 [include]
